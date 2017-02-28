@@ -58,7 +58,17 @@ namespace RegistrarApp
       Get["/students/{id}"] = parameters => {
         Student thisStudent = Student.Find(parameters.id);
         List<Course> studentCourses = thisStudent.GetCourse();
-        Dictionary<string, object> model = new Dictionary<string, object>{{"student", thisStudent},{"courses", studentCourses}};
+        List<Course> allCourses = Course.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>{{"student", thisStudent},{"courses", studentCourses}, {"allcourses", allCourses}};
+        return View["student.cshtml", model];
+      };
+      Post["/students/{id}/add_course"] = parameters => {
+        Course newCourse = Course.Find(int.Parse(Request.Form["students"]));
+        Student thisStudent = Student.Find(parameters.id);
+        thisStudent.AddCourse(newCourse);
+        List<Course> studentCourses = thisStudent.GetCourse();
+        List<Course> allCourses = Course.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>{{"student", thisStudent},{"courses", studentCourses}, {"allcourses", allCourses}};
         return View["student.cshtml", model];
       };
     }

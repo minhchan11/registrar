@@ -9,3 +9,17 @@
     <li>@course.GetCourseNumber(): @course.GetCourseName()</li>
   }
 </li>
+
+<h4>Add a course to this student</h4>
+<form action="/students/@Model["student"].GetId()/add_course" method="post">
+  <label for="courses">Select A Course</label>
+    <select id="students" name="students" type ="number">
+      @foreach (var course in @Model["allcourses"])
+      {
+        <option value="@course.GetId()">@course.GetCourseNumber(): @course.GetCourseName()</option>
+      }
+    </select>
+  <button type="submit">Add</button>
+</form>
+
+<p><a href="/">Return home</a></p>
