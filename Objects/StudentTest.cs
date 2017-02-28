@@ -39,5 +39,97 @@ namespace RegistrarApp
       Assert.Equal(studentTwo, studentOne);
     }
 
+    [Fact]
+    public void Save_OneStudent_StudentSavedToDatabase()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+
+      //Act
+      testStudent.Save();
+      List<Student> output = Student.GetAll();
+      List<Student> verify = new List<Student>{testStudent};
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
+    [Fact]
+    public void Save_OneStudent_StudentSavedWithCorrectID()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+      testStudent.Save();
+      Student savedStudent = Student.GetAll()[0];
+
+      //Act
+      int output = savedStudent.GetId();
+      int verify = testStudent.GetId();
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
+    [Fact]
+    public void SaveGetAll_ManyStudents_ReturnListOfStudents()
+    {
+      //Arrange
+      Student studentOne = new Student ("Joe", "Fall 2017");
+      studentOne.Save();
+      Student studentTwo = new Student ("Roy", "Summer 2017");
+      studentTwo.Save();
+
+      //Act
+      List<Student> output = Student.GetAll();
+      List<Student> verify = new List<Student>{studentOne, studentTwo};
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
+    [Fact]
+    public void Find_OneStudentId_ReturnStudentFromDatabase()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+      testStudent.Save();
+
+      //Act
+      Student foundStudent = Student.Find(testStudent.GetId());
+
+      //Assert
+      Assert.Equal(testStudent, foundStudent);
+    }
+
+    [Fact]
+    public void SearchName_Name_ReturnStudentFromDatabase()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+      testStudent.Save();
+
+      //Act
+      List<Student> output = Student.SearchName("Joe");
+      List<Student> verify = new List<Student>{testStudent};
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
+    [Fact]
+    public void SearchEnrollDate_EnrollDate_ReturnStudentFromDatabase()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+      testStudent.Save();
+
+      //Act
+      List<Student> output = Student.SearchEnrollDate("Fall 2017");
+      List<Student> verify = new List<Student>{testStudent};
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
   }
 }

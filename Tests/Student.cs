@@ -86,5 +86,125 @@ namespace RegistrarApp
         return (idEquality && nameEquality && enrollDateEquality);
       }
     }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO students (name, enroll_date) OUTPUT INSERTED.id VALUES (@StudentName, @StudentDate) ;", conn);
+      cmd.Parameters.Add(new SqlParameter("@StudentName", this.GetName()));
+      cmd.Parameters.Add(new SqlParameter("@StudentDate", this.GetEnrollDate()));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static Student Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM students WHERE id = @StudentId;", conn);
+      cmd.Parameters.Add(new SqlParameter("@StudentId", id.ToString()));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int studentId = 0;
+      string studentName = null;
+      string studentDate = null;
+
+      while (rdr.Read())
+      {
+        studentId = rdr.GetInt32(0);
+        studentName = rdr.GetString(1);
+        studentDate = rdr.GetString(2);
+      }
+
+      Student foundStudent = new Student(studentName, studentDate, studentId);
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundStudent;
+    }
+
+    public static List<Student> SearchName(string name)
+    {
+      List<Student> foundStudents = new List<Student>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM students WHERE name = @StudentName", conn);
+      cmd.Parameters.Add(new SqlParameter("@StudentName", name));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int studentId = rdr.GetInt32(0);
+        string studentName = rdr.GetString(1);
+        string studentDate = rdr.GetString(2);
+        Student foundStudent = new Student(studentName, studentDate, studentId);
+        foundStudents.Add(foundStudent);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundStudents;
+    }
+
+    public static List<Student> SearchEnrollDate(string enrollDate)
+    {
+      List<Student> foundStudents = new List<Student>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM students WHERE enroll_date = @StudentEnrollDate", conn);
+      cmd.Parameters.Add(new SqlParameter("@StudentEnrollDate", enrollDate));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int studentId = rdr.GetInt32(0);
+        string studentName = rdr.GetString(1);
+        string studentDate = rdr.GetString(2);
+        Student foundStudent = new Student(studentName, studentDate, studentId);
+        foundStudents.Add(foundStudent);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundStudents;
+    }
   }
 }
