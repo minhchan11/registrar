@@ -1,0 +1,11 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+<h3>Information for @Model["student"].GetName(), enrolled in @Model["student"].GetEnrollDate()</h3>
+<li>
+  @foreach(var course in @Model["courses"])
+  {
+    <li>@course.GetCourseNumber(): @course.GetCourseName()</li>
+  }
+</li>

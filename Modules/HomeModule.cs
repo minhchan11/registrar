@@ -32,6 +32,22 @@ namespace RegistrarApp
         model.Add("students", foundStudents);
         return View["course.cshtml", model];
       };
+      Get["/students"] = _ => {
+        List<Student> allStudents = Student.GetAll();
+        return View["students.cshtml", allStudents];
+      };
+      Post["/students/new"] = _ => {
+        Student newStudent = new Student(Request.Form["student-name"], Request.Form["student-enrolldate"]);
+        newStudent.Save();
+        List<Student> allStudents = Student.GetAll();
+        return View["students.cshtml", allStudents];
+      };
+      Get["/students/{id}"] = parameters => {
+        Student thisStudent = Student.Find(parameters.id);
+        List<Course> studentCourses = thisStudent.GetCourse();
+        Dictionary<string, object> model = new Dictionary<string, object>{{"student", thisStudent},{"courses", studentCourses}};
+        return View["student.cshtml", model];
+      };
     }
   }
 }
