@@ -87,5 +87,122 @@ namespace RegistrarApp
 
       return allCourses;
     }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO courses (course_name, course_number) OUTPUT INSERTED.id VALUES (@CourseName, @CourseNumber);", conn);
+      cmd.Parameters.Add(new SqlParameter("@CourseName", this.GetCourseName()));
+      cmd.Parameters.Add(new SqlParameter("@CourseNumber", this.GetCourseNumber()));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static Course Find(int Id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM courses WHERE id = @CourseId;", conn);
+      cmd.Parameters.Add(new SqlParameter("@CourseId", Id));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int courseId = 0;
+      string courseName = null;
+      string courseNumber = null;
+
+      while(rdr.Read())
+      {
+        courseId = rdr.GetInt32(0);
+        courseName = rdr.GetString(1);
+        courseNumber = rdr.GetString(2);
+      }
+
+      Course foundCourse = new Course(courseName, courseNumber, courseId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundCourse ;
+    }
+
+    public static List<Course> SearchName(string searchName)
+    {
+      List<Course> results = new List<Course>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM courses WHERE course_name = @CourseName", conn);
+      cmd.Parameters.Add(new SqlParameter("@CourseName", searchName));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int Id = rdr.GetInt32(0);
+        string Name = rdr.GetString(1);
+        string Number = rdr.GetString(2);
+        Course newCourse = new Course(Name, Number, Id);
+        results.Add(newCourse);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return results;
+    }
+
+    public static List<Course> SearchNumber(string searchNumber)
+    {
+      List<Course> results = new List<Course>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM courses WHERE course_number = @CourseNumber", conn);
+      cmd.Parameters.Add(new SqlParameter("@CourseNumber", searchNumber));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int Id = rdr.GetInt32(0);
+        string Name = rdr.GetString(1);
+        string Number = rdr.GetString(2);
+        Course newCourse = new Course(Name, Number, Id);
+        results.Add(newCourse);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return results;
+    }
   }
 }
