@@ -28,6 +28,19 @@ namespace RegistrarApp
         Dictionary<string,object> model = new Dictionary<string,object>{};
         var foundCourse = Course.Find(parameters.id);
         var foundStudents = foundCourse.GetStudents();
+        var allStudents = Student.GetAll();
+        model.Add("allStudents", allStudents);
+        model.Add("course", foundCourse);
+        model.Add("students", foundStudents);
+        return View["course.cshtml", model];
+      };
+      Post["/courses/{id}/add_student"] = parameters => {
+        Dictionary<string,object> model = new Dictionary<string,object>{};
+        var foundCourse = Course.Find(parameters.id);
+        foundCourse.AddStudent(Student.Find(Request.Form["students"]));
+        var foundStudents = foundCourse.GetStudents();
+        var allStudents = Student.GetAll();
+        model.Add("allStudents", allStudents);
         model.Add("course", foundCourse);
         model.Add("students", foundStudents);
         return View["course.cshtml", model];

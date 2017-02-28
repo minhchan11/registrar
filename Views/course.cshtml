@@ -9,8 +9,22 @@
   @foreach( var student in @Model["students"])
   {
     <ol>
-      <li>student.GetName()</li>
-        <ul><li>student.GetEnrollDate()</li></ul>
+      <li>@student.GetName()</li>
+        <ul><li>@student.GetEnrollDate()</li></ul>
     </ol>
   }
 }
+
+<h4>Add a student to this course:</h4>
+<form action='/courses/@Model["course"].GetId()/add_student' method='post'>
+  <label for='students'>Select a student</label>
+  <select id='students' name='students' type='number'>
+    @foreach (var student in @Model["allStudents"])
+    {
+      <option value='@student.GetId()'>@student.GetName()</option>
+    }
+  </select>
+  <button type='submit'>Add</button>
+</form>
+
+<p><a href="/">Return home</a></p>
