@@ -1,0 +1,16 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+<h3>Information for @Model["course"].GetCourseName(): @Model["course"].GetCourseNumber()</h3>
+
+@if(@Model["students"].Count != 0)
+{
+  @foreach( var student in @Model["students"])
+  {
+    <ol>
+      <li>student.GetName()</li>
+        <ul><li>student.GetEnrollDate()</li></ul>
+    </ol>
+  }
+}
