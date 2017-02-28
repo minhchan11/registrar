@@ -1,5 +1,5 @@
-# Airline Flight Database
-#### _Site to view flights_
+# Airline Course Database
+#### _Site to view courses_
 
 #### By _**Alexandra Holcombe && Minh Phuong**_
 
@@ -17,11 +17,11 @@ This website will take a string and a word from a user, then count the number of
         `> GO`  
         `> USE airline`  
         `> GO`  
-        `> CREATE TABLE cities(id INT IDENTITY(1,1),name VARCHAR(255))`
+        `> CREATE TABLE students(id INT IDENTITY(1,1),name VARCHAR(255))`
         `> GO`  
-        `> CREATE TABLE flights(id INT IDENTITY(1,1),number VARCHAR(255), departure_time DATETIME,  flight_status VARCHAR(255))`
+        `> CREATE TABLE courses(id INT IDENTITY(1,1),number VARCHAR(255), departure_time DATETIME,  course_status VARCHAR(255))`
         `> GO`  
-        `> CREATE TABLE flights (id INT IDENTITY(1,1), flight_id INT, arrival_id INT, departure_id INT)`  
+        `> CREATE TABLE courses (id INT IDENTITY(1,1), course_id INT, arrival_id INT, departure_id INT)`  
         `> GO`  
 
 * Requires DNU, DNX, MSSQL, and Mono
@@ -34,145 +34,173 @@ This website will take a string and a word from a user, then count the number of
 
 ## Specifications
 
-### City Class
+### Student Class
 ================  
 
-**The DeleteAll method for the City class will delete all rows from the cities table.**
+**The DeleteAll method for the Student class will delete all rows from the students table.**
 * Example Input: none
 * Example Output: nothing
 
-**The GetAll method for the City class will return an empty list if there are no entries in the City table.**
+**The GetAll method for the Student class will return an empty list if there are no entries in the Student table.**
 * Example Input: N/A
 * Example Output: empty list
 
-**The Equals method for the City class will return true if the City in local memory matches the City pulled from the database.**
+**The Equals method for the Student class will return true if the Student in local memory matches the Student pulled from the database.**
 * Example Input:  
-        > Local: "Seattle", id is 10  
-        > Database: "Seattle", id is 10  
+        > Local: "Joe", id is 10 , dateEnrolled: Fall 2016
+        > Database: "Joe", id is 10 , dateEnrolled: Fall 2016
 * Example Output: `true`
 
-**The Save method for the City class will save new Cities to the database.**
+**The Save method for the Student class will save new students to the database.**
 * Example Input:  
-\> New city: "Seattle"
+\> New studenty: "Joe"
 * Example Output: no return value
 
-**The Save method for the City class will assign an id to each new instance of the City class.**
+**The Save method for the Student class will assign an id to each new instance of the Student class.**
 * Example Input:  
-\> New stylist: "Seattle", `local id: 0`  
+\> New student: "Joe", `local id: 0`  
 * Example Output:  
-\> "Jennifer", `database-assigned id`  
+\> "Joe", `database-assigned id`  
 
-**The GetAll method for the City class will return all city entries in the database in the form of a list.**
+**The GetAll method for the Student class will return all student entries in the database in the form of a list.**
 * Example Input:  
-        > "Seattle", id is 10  
-        > "Portland", id is 11  
-* Example Output: `{Seattle object}, {Portland object}`
+        > "Joe", id is 10  
+        > "Roy", id is 11  
+* Example Output: `{Joe object}, {Roy object}`
 
-**The Find method for the City class will return the City as defined in the database.**
-* Example Input: "Seattle"
-* Example Output: "Seattle", `database-assigned id`
+<!-- **The Find method for the Student class will return the Student as defined in the database.**
+* Example Input: "Joe"
+* Example Output: "Joe", `database-assigned id`
 
+**The Update method for the Student class will return the Student with the new student name or date of enrollment.**
+* Example Input: "Joe", id is 10 , dateEnrolled: Fall 2016
+* Example Output: "Joe", id is 10 , dateEnrolled: Fall 2017
 
-### Flight class
+**The Delete method for the Student class will return a list of Students without the deleted Course.**
+* Example Input: "Joe"
+* Example Output: "Roy"
+ -->
+**The Search method for the Student class will return a list of Students with matched name or date of enrollment.**
+* Example Input: Search "Joe
+* Example Output: "Joe", id is 10 , dateEnrolled: Fall 2016
+
+### Course class
 ================
 
-**The DeleteAll method for the Flight class will delete all rows from the flights table.**
+**The DeleteAll method for the Course class will delete all rows from the courses table.**
 * Example Input: none
 * Example Output: nothing
 
-**The GetAll method for the Flight class will return an empty list if there are no entries in the Flight table.**
+**The GetAll method for the Course class will return an empty list if there are no entries in the Course table.**
 * Example Input: N/A, automatically loads on home page
 * Example Output: empty list
 
-**The Equals method for the Flight class will return true if the Flight in local memory matches the Flight pulled from the database.**
+**The Equals method for the Course class will return true if the Course in local memory matches the Course pulled from the database.**
 * Example Input:  
-        > Local: "AX9087", id is 10  
-        > Database: "AX9087", id is 10  
+        > Local: "HIST100", id is 10  
+        > Database: "HIST100", id is 10  
 * Example Output: `true`
 
-**The Save method for the Flight class will save new Flights to the database.**
+**The Save method for the Course class will save new Courses to the database.**
 * Example Input:  
-\> New flight: "AX9087"
+\> New course: "HIST100"
 * Example Output: no return value
 
-**The Save method for the Flight class will assign an id to each new instance of the Flight class.**
+**The Save method for the Course class will assign an id to each new instance of the Course class.**
 * Example Input:  
-\> New stylist: "AX9087", `local id: 0`  
+\> New course: "HIST100", `local id: 0`  
 * Example Output:  
-\> "AX9087",`database-assigned id`  
+\> "HIST100",`database-assigned id`  
 
-**The GetAll method for the Flight class will return all flight entries in the database in the form of a list.**
+**The GetAll method for the Course class will return all course entries in the database in the form of a list.**
 * Example Input:  
-        > "AX9087", id is 10  
-        > "BD695", id is 11  
-* Example Output: `{AX9087 object}, {BD695 object}`
+        > "HIST100", id is 10  
+        > "HIST101", id is 11  
+* Example Output: `{HIST100 object}, {HIST101 object}`
 
-**The Find method for the Flight class will return the Flight as defined in the database.**
-* Example Input: "AX9087",
-* Example Output: "AX9087", `database-assigned id`
+<!-- **The Find method for the Course class will return the Course as defined in the database.**
+* Example Input: "HIST100",
+* Example Output: "HIST100", `database-assigned id`
 
-**The Update method for the Flight class will return the Flight with the new status.**
-* Example Input: "AX9087", id is 10, status: On Time
-* Example Output: "AX9087", id is 10, status: Delayed
+**The Update method for the Course class will return the Course with the new course name.**
+* Example Input: "HIST100", id is 10, courseName: United States History from 1877
+* Example Output: "HIST100", id is 10, courseName: United States History to 1877
 
-**The Delete method for the Flight class will return a list of Flights without the deleted Flight.**
-* Example Input: "AX9087"
-* Example Output: "BD695, JH5689, AI984"
+**The Delete method for the Course class will return a list of Courses without the deleted Course.**
+* Example Input: "HIST100"
+* Example Output: "HIST101" -->
 
-### City && Flight classes
+**The Search method for the Course class will return a list of Courses with matched course name or course number.**
+* Example Input: Search "HIST10"
+* Example Output: "HIST100", id is 10, courseName: United States History to 1877, "HIST101", id is 11, courseName: Britain History to 1877
+
+### Student && Course classes
 ===========================
 
-**The GetFlight method for the City class will return the list of flights associated with that city.**
-* Example Input: "Seattle"
-* Example Output: Departures: "AX5839" Arrivals: "IM2043"
+**The GetCourse method for the Student class will return the list of courses associated with that student.**
+* Example Input: "Joe"
+* Example Output:  "HIST100", "HIST101"
 
-**The GetCity method for the Flight class will return the list of cities associated with that flight.**
-* Example Input: "AX5839"
-* Example Output: Departures: "Seattle"  Arrivals: "Portland"
+**The GetStudent method for the Course class will return the list of students associated with that course.**
+* Example Input: "HIST100"
+* Example Output: "Joe", "Roy"
 
-**The Delete method for the City class will also remove all flights associate with that city.**
-* Example Input: Delete "Seattle"
-* Example Output: List of all flights excluding those connected to Seattle
+**The Delete method for the Student class will delete the entry that connects the course id with the student**
+* Example Input: Delete "HIST101" from "Joe"
+* Example Output: List of all courses excluding the combination of "HIST101" and "Joe"
 
 ### User Interface
 ===================  
 
-**The user can add a new City using the "Add City" form.**
-* Example Input: New City: "Seattle"
-* Example Output: All Cities: "Seattle, Portland, New York"
+**The user can add a new Student using the "Add Student" form.**
+* Example Input: New Student: "Joe", enrollment date: Fall 2017;
+* Example Output: All Students Page: "Joe,Roy,Kim"
 
-**The user can add a new Flight using the "Add flight" form.**
-* Example Input: New Flight: "AX5839" Departure City: "Seattle" Arrival City: "Chicago" Departure Time: 4:00 PM
-* Example Output: All Flights: "AX5839", "BD3049", etc
+**The user can add a new Course using the "Add course" form.**
+* Example Input: New Course: "HIST100", courseName: United States History from 1877
+* Example Output: All Courses:"HIST100", "HIST101", "HIST102"
 
-**The user can click on any flight in the flights list to view the flight's details**
-* Example Input: *click* "AX5839"
-* Example Output: "AX5839" Departure City: "Seattle" Arrival City: "Chicago" Departure Time: 4:00 PM
+**The user can click on any course in the courses list to view the course's details**
+* Example Input: *click* "HIST100"
+* Example Output: "HIST100", courseName: United States History from 1877, students enrolled "Joe"
 
-**The user can click on any city to view a list of all flights from and to that city.**
-* Example Input: *click* "Seattle"
-* Example Output: Departures: "AX5839" Arrivals: "IM2043"
+**The user can click on any student to view a list of all courses that the student is enrolled in and enrollment date.**
+* Example Input: *click* "Joe"
+* Example Output: "Joe", enrollment date: Fall 2017; enrolled courses: "HIST100", courseName: United States History from 1877; "HIST101", courseName: Britain History to 1877
 
-**The user can edit a flight's status on the flight's page.**
+**The user can edit a course's course name and course number on the course's page.**
 * Example Input:  
-    \> *click* "AX5389"  
-    \> New status: "On Time"  
-* Example Output: "AX4389", "On Time"
+    \> *click* "HIST100"  
+    \> New course name: "Britan History to 1877"  
+* Example Output: "HIST100", "Britan History to 1877"
 
-**The user can delete a flight using a link on the flight's page which will lead to a confirmation page.**
+**The user can delete a course using a link on the course's page which will lead to a confirmation page.**
 * Example Input:  
-    \> *click* "AX5389"  
+    \> *click* "HIST100"  
     \> *delete clicky*  
     \> *confirmation clicky*
-* Example Output: Return to All Flights
+* Example Output: Return to Search Course Page
 
-**The user can delete all flights on the page listing all flights, which will lead to a confirmation page.**
-* Example Input: *click* Delete All Flights
-* Example Output: No flights.
+**The user can edit a student's name and enrollment date on the student's page.**
+* Example Input:  
+    \> *click* "Joe"  
+    \> New enrollment date: "Fall 2017"  
+* Example Output: "HIST100", "Fall 2017"
 
-**The user can delete a city on the city's page and all flights associated with that city will be deleted.**
-* Example Input: *click* Delete Portland
-* Example Output: all flights to/from portland have been removed, return to All Flights
+**The user can delete a student using a link on the student's page which will lead to a confirmation page.**
+* Example Input:  
+    \> *click* "Joe"  
+    \> *delete clicky*  
+    \> *confirmation clicky*
+* Example Output: Return to Search Student Page
+
+**The user can search using student name and enrollment date for a student using the search form.**
+* Example Input: "Jo", "Fall 2016"
+* Example Output: "Joe"
+
+**The user can search using course name and course number for a course using the search form.**
+* Example Input: "History" "HIST10"
+* Example Output: "HIST101"
 
 ***
 
