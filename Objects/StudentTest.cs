@@ -131,5 +131,23 @@ namespace RegistrarApp
       Assert.Equal(verify, output);
     }
 
+    [Fact]
+    public void AddCourse_OneStudent_CourseAddedToJoinTable()
+    {
+      //Arrange
+      Student testStudent = new Student ("Joe", "Fall 2017");
+      testStudent.Save();
+      Course testCourse = new Course("HIST101", "United States History to 1877");
+      testCourse.Save();
+      testStudent.AddCourse(testCourse);
+
+      //Act
+      List<Course> output = testStudent.GetCourse();
+      List<Course> verify = new List<Course>{testCourse};
+
+      //Assert
+      Assert.Equal(verify, output);
+    }
+
   }
 }
