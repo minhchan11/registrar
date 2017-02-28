@@ -204,5 +204,52 @@ namespace RegistrarApp
       }
       return results;
     }
+
+    public void AddStudent(Student newStudent)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO students_courses (student_id, course_id) VALUES (@StudentId, @CourseId);", conn);
+      cmd.Parameters.Add(new SqlParameter("@StudentId", newStudent.GetId()));
+      cmd.Parameters.Add(new SqlParameter("@CourseId", this.GetId().ToString()));
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public List<Student> GetStudents()
+    {
+      List<Student> results = new List<Student>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT students.* FROM courses JOIN students_courses ON (courses.id = students_courses.course_id) JOIN students ON (students.id = students_courses.student_id) WHERE courses.id = @CourseId;", conn);
+      cmd.Parameters.Add(new SqlParameter("@CourseId", this.GetId()));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int Id = rdr.GetInt32(0);
+        string Name = rdr.GetString(1);
+        string EnrollDate = rdr.GetString(2);
+        Student newStudent = new Student(Name, EnrollDate, Id);
+        results.Add(newStudent);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return results;
+
+    }
   }
 }

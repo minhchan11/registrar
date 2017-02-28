@@ -16,6 +16,7 @@ namespace RegistrarApp
     public void Dispose()
     {
       Course.DeleteAll();
+      Student.DeleteAll();
     }
 
     [Fact]
@@ -95,6 +96,26 @@ namespace RegistrarApp
       List<Course> verify = new List<Course>{testCourse};
 
       Assert.Equal(verify, output);
+    }
+
+    [Fact]
+    public void AddStudent_OneCourse_StudentAddedToJoinTable()
+    {
+    //Arrange
+    Course testCourse = new Course("United States History to 1877", "HIST101");
+    testCourse.Save();
+    Student testStudent = new Student ("Joe", "Fall 2017");
+    Student testStudent2 = new Student ("Kat", "Fall 2017");
+    testStudent.Save();
+    testStudent2.Save();
+    testCourse.AddStudent(testStudent);
+    testCourse.AddStudent(testStudent2);
+
+    List<Student> output = testCourse.GetStudents();
+    List<Student> verify = new List<Student>{testStudent, testStudent2};
+
+    //Assert
+    Assert.Equal(verify, output);
     }
   }
 }
