@@ -1,7 +1,7 @@
 # Airline Course Database
 #### _Site to view courses_
 
-#### By _**Alexandra Holcombe && Minh Phuong**_
+#### By _**Renee Mei && Minh Phuong**_
 
 ## Description
 
@@ -13,15 +13,15 @@ This website will take a string and a word from a user, then count the number of
 
 #### Create Databases
 * In `SQLCMD`:  
-        `> CREATE DATABASE airline`  
+        `> CREATE DATABASE registrar`  
         `> GO`  
-        `> USE airline`  
+        `> USE registrar`  
         `> GO`  
-        `> CREATE TABLE students(id INT IDENTITY(1,1),name VARCHAR(255))`
+        `> CREATE TABLE students(id INT IDENTITY(1,1),name VARCHAR(255), enroll_date VARCHAR(255))`
         `> GO`  
-        `> CREATE TABLE courses(id INT IDENTITY(1,1),number VARCHAR(255), departure_time DATETIME,  course_status VARCHAR(255))`
+        `> CREATE TABLE courses(id INT IDENTITY(1,1),course_name VARCHAR(255), course_number VARCHAR(255))`
         `> GO`  
-        `> CREATE TABLE courses (id INT IDENTITY(1,1), course_id INT, arrival_id INT, departure_id INT)`  
+        `> CREATE TABLE students_courses (id INT IDENTITY(1,1), student_id INT, course_id INT)`  
         `> GO`  
 
 * Requires DNU, DNX, MSSQL, and Mono
@@ -206,7 +206,7 @@ This website will take a string and a word from a user, then count the number of
 
 ## Support and contact details
 
-Please contact Allie Holcombe at alexandra.holcombe@gmail.com or Minh Phuong mphuong@kent.edu with any questions, concerns, or suggestions.
+Please contact Renee Mei at meiqianye@gmail.com or Minh Phuong mphuong@kent.edu with any questions, concerns, or suggestions.
 
 ***
 
@@ -226,4 +226,4 @@ This web application uses:
 
 *This project is licensed under the MIT license.*
 
-Copyright (c) 2017 **_Alexandra Holcombe && Minh Phuong_**
+Copyright (c) 2017 **_Renee Mei && Minh Phuong_**

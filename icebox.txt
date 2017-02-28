@@ -1,0 +1,4 @@
+SELECT Value,
+       Num=CAST(RIGHT(Value, LEN(Value) - 3) AS int)
+FROM dbo.TableName
+ORDER BY Num
